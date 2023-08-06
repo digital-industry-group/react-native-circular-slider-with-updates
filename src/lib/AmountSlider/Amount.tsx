@@ -36,7 +36,7 @@ export function Amount({
     'worklet';
     if (context.target.value?.curr) {
       if (onMove) {
-        runOnJS(onMove)(theta.value)
+        runOnJS(onMove)(theta2Amount(theta.value, total, clockwise))
       }
       const {theta: newTheta} = canvas2Polar({x, y}, center.value);
       const delta = newTheta - context.offset;
