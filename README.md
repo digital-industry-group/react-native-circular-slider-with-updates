@@ -13,13 +13,13 @@ Support type
 ## Installation
 
 ```sh
-npm install --save @zaradev/react-native-circular-slider
+npm install --save react-native-circular-slider-with-updates
 ```
 
 or
 
 ```sh
-yarn add @zaradev/react-native-circular-slider
+yarn add react-native-circular-slider-with-updates
 ```
 
 ### Peer Dependencies
