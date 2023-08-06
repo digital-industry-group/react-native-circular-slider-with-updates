@@ -1,5 +1,5 @@
 {
-  "name": "@zaradev/react-native-circular-slider",
+  "name": "react-native-circular-slider-with-updates",
   "description": "3 types Circular Slider Component for React Native",
   "version": "0.0.9",
   "private": false,
@@ -16,15 +16,15 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com:zaragit/react-native-circular-slider.git"
+    "url": "git+ssh://git@github.com:digital-industry-group/react-native-circular-slider-with-updates.git"
   },
   "bugs": {
-    "url": "https://github.com/zaragit/react-native-circular-slider/issues",
-    "email": "p080931@gmail.com"
+    "url": "https://github.com/digital-industry-group/react-native-circular-slider-with-updates/issues",
+    "email": "npm@dig.solutions"
   },
   "author": {
-    "name": "ZaraDev",
-    "email": "p080931@gmail.com"
+    "name": "Digital Industry Group",
+    "email": "npm@dig.solutions"
   },
   "scripts": {
     "android": "react-native run-android",
