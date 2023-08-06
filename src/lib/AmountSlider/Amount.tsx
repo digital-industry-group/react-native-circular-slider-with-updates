@@ -16,6 +16,7 @@ export interface AmountProps {
   thumbColor: string;
   filledColor: string;
   onChange?: (amount: number) => void;
+  onMove?: (amount: number) => void;
 }
 
 export function Amount({
@@ -23,6 +24,7 @@ export function Amount({
   thumbColor,
   filledColor,
   onChange,
+    onMove,
 }: AmountProps) {
   const {center, clockwise} = useSliderContext();
   const {total} = useTickMarkContext();
@@ -33,6 +35,9 @@ export function Amount({
   const onGestureActive = ({x, y}: Vector, context: GestureContext) => {
     'worklet';
     if (context.target.value?.curr) {
+      if (onMove) {
+        runOnJS(onMove)(theta.value)
+      }
       const {theta: newTheta} = canvas2Polar({x, y}, center.value);
       const delta = newTheta - context.offset;
       theta.value = normalize(theta.value + delta);

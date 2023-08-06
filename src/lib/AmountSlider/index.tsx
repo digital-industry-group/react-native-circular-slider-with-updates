@@ -12,6 +12,7 @@ export interface AmountSliderProps extends SliderOptions {
   thumbIcon?: React.ReactNode;
   trackOptions?: TrackOptions;
   tickMarkOptions?: TickMarkOptions;
+  onMove?: (amount: number) => void;
 }
 
 export function AmountSlider({
@@ -21,6 +22,7 @@ export function AmountSlider({
   filledColor = '#FFE5B4',
   amount,
   onChange,
+    onMove,
   thumbIcon,
   trackOptions = {},
   tickMarkOptions = {},
@@ -37,6 +39,7 @@ export function AmountSlider({
         thumbColor={thumbColor}
         filledColor={filledColor}
         onChange={onChange}
+        onMove={onMove}
       />
     </Slider>
   );
