@@ -18,6 +18,7 @@ export interface AmountProps {
   filledColor: string;
   onChange?: (amount: number) => void;
   onMove?: (amount: number) => void;
+  onMoveDebug?: (data: {theta: number; total: number; clockwise: boolean}) => void;
   startDeg?: number;
   endDeg?: number;
 }
@@ -28,7 +29,8 @@ export function Amount({
   thumbRadius,
   filledColor,
   onChange,
-    onMove,
+  onMove,
+  onMoveDebug,
   startDeg = 0,
   endDeg = 359,
 }: AmountProps) {
@@ -37,18 +39,30 @@ export function Amount({
 
   const zeroTheta = useSharedValue(amount2Theta(startDeg, 360, clockwise));
   const endTheta = useSharedValue(amount2Theta(endDeg, 360, clockwise));
+  const endThetaReturn = useSharedValue(amount2Theta(endDeg, 360, clockwise));
   const theta = useSharedValue(amount2Theta(amount, total, clockwise));
 
   const onGestureActive = ({x, y}: Vector, context: GestureContext) => {
     'worklet';
+    const valueDeg = theta2Amount(theta.value, 360, clockwise);
     if (context.target.value?.curr) {
       if (onMove) {
-        runOnJS(onMove)(theta2Amount(theta.value, total, clockwise))
+        if (valueDeg <= endDeg) {
+          runOnJS(onMove)(theta2Amount(theta.value, total, clockwise))
+        }
+      }
+      if (onMoveDebug) {
+        runOnJS(onMoveDebug)({theta: theta.value, total, clockwise})
       }
       const {theta: newTheta} = canvas2Polar({x, y}, center.value);
       const delta = newTheta - context.offset;
-      theta.value = normalize(theta.value + delta);
-      context.offset = newTheta;
+      if (valueDeg <= endDeg && valueDeg >= startDeg) {
+        theta.value = normalize(theta.value + delta);
+        context.offset = newTheta;
+      } else {
+        theta.value = endTheta.value;
+        // context.offset = endTheta.value;
+      }
     }
   };
 

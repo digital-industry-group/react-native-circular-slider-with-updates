@@ -14,6 +14,7 @@ export interface AmountSliderProps extends SliderOptions {
   trackOptions?: TrackOptions;
   tickMarkOptions?: TickMarkOptions;
   onMove?: (amount: number) => void;
+  onMoveDebug?: (data: {theta: number; total: number; clockwise: boolean}) => void;
   startDeg?: number;
   endDeg?: number;
   padding?: number;
@@ -28,6 +29,7 @@ export function AmountSlider({
   amount,
   onChange,
   onMove,
+  onMoveDebug,
   startDeg,
   endDeg,
   thumbIcon,
@@ -50,6 +52,7 @@ export function AmountSlider({
         filledColor={filledColor}
         onChange={onChange}
         onMove={onMove}
+        onMoveDebug={onMoveDebug}
         startDeg={startDeg}
         endDeg={endDeg}
       />
