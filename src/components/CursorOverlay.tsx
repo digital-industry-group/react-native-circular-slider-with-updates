@@ -26,8 +26,8 @@ const CursorOverlay = ({theta, onPressIn, children}: CursorOverlayProps) => {
     const {x, y} = position.value;
 
     return {
-      width: trackWidth.value,
-      height: trackWidth.value,
+      width: trackWidth.value * 2,
+      height: trackWidth.value * 2,
       borderRadius: trackWidth.value / 2,
       transform: [
         {translateX: x - trackWidth.value / 2},

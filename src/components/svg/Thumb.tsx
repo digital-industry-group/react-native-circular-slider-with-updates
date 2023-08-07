@@ -14,10 +14,13 @@ const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 export interface ThumbProps {
   color: string;
   theta: SharedNumber;
+  radius?: number;
 }
 
-export function Thumb({color, theta}: ThumbProps) {
+export function Thumb({color, theta, radius}: ThumbProps) {
   const {r, center, trackWidth} = useSliderContext();
+
+  const thumbRadius = radius ? radius : trackWidth.value / 2;
 
   const position = useDerivedValue(() =>
     polar2Canvas({theta: theta.value, radius: r.value}, center.value),
@@ -27,7 +30,7 @@ export function Thumb({color, theta}: ThumbProps) {
     return {
       cx: position.value.x,
       cy: position.value.y,
-      r: trackWidth.value / 2,
+      r: thumbRadius,
     };
   }, [position]);
 

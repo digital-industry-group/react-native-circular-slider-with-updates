@@ -7,7 +7,7 @@ import {useSliderContext} from '../../context/SliderContext';
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 export function Track() {
-  const {r, center, trackWidth, trackColor} = useSliderContext();
+  const {r, padding, center, trackWidth, trackColor} = useSliderContext();
 
   const animatedProps = useAnimatedProps(() => {
     return {

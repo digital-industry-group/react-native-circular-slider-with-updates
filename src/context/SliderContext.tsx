@@ -12,6 +12,7 @@ import {
 
 interface SliderContext {
   size: SharedNumber;
+  padding: SharedNumber;
   r: SharedNumber;
   center: SharedVector;
   trackWidth: SharedNumber;
@@ -38,7 +39,7 @@ export default function SliderContextProvider({
   thumbOptions,
   children,
 }: SliderContextProviderProps) {
-  const {size, clockwise} = sliderOptions;
+  const {size, padding, clockwise} = sliderOptions;
   const {width, color} = trackOptions;
 
   const derivedSize = useDerivedValue(() => size, [size]);
@@ -47,8 +48,9 @@ export default function SliderContextProvider({
     [width],
   );
   const derivedR = useDerivedValue(
-    () => (derivedSize.value - derivedTrackWidth.value) / 2,
+    () => (derivedSize.value - padding - derivedTrackWidth.value) / 2,
   );
+  const derivedPadding = useDerivedValue(() => padding, [padding]);
   const derivedCenter = useDerivedValue(() => ({
     x: derivedSize.value / 2,
     y: derivedSize.value / 2,
@@ -58,6 +60,7 @@ export default function SliderContextProvider({
     <SliderContext.Provider
       value={{
         size: derivedSize,
+        padding: derivedPadding,
         r: derivedR,
         clockwise,
         center: derivedCenter,

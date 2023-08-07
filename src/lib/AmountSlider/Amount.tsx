@@ -14,6 +14,7 @@ import {amount2Theta, normalize, theta2Amount} from '../../utils/worklets';
 export interface AmountProps {
   amount: number;
   thumbColor: string;
+  thumbRadius?: number;
   filledColor: string;
   onChange?: (amount: number) => void;
   onMove?: (amount: number) => void;
@@ -24,6 +25,7 @@ export interface AmountProps {
 export function Amount({
   amount,
   thumbColor,
+  thumbRadius,
   filledColor,
   onChange,
     onMove,
@@ -44,11 +46,9 @@ export function Amount({
         runOnJS(onMove)(theta2Amount(theta.value, total, clockwise))
       }
       const {theta: newTheta} = canvas2Polar({x, y}, center.value);
-      const newDeg = theta2Amount(newTheta, 360, clockwise);
-      const limitedTheta = newDeg <= endDeg ? newTheta : amount2Theta(endDeg, 360, clockwise);
-      const delta = limitedTheta - context.offset;
+      const delta = newTheta - context.offset;
       theta.value = normalize(theta.value + delta);
-      context.offset = limitedTheta;
+      context.offset = newTheta;
     }
   };
 
@@ -71,7 +71,7 @@ export function Amount({
         startTheta={zeroTheta}
         endTheta={theta}
       />
-      <Thumb theta={theta} color={thumbColor} />
+      <Thumb theta={theta} color={thumbColor} radius={thumbRadius}/>
     </Container>
   );
 }

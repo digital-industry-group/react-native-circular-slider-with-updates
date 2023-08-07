@@ -25,7 +25,7 @@ export function Container({
   onGestureEnd,
   children,
 }: ContainerProps) {
-  const {size, r, center, clockwise, trackWidth} = useSliderContext();
+  const {size, padding, r, center, clockwise, trackWidth} = useSliderContext();
   const {show, total, unit, color, showText, thickness, length} =
     useTickMarkContext();
   const {icons} = useThumbContext();
@@ -41,8 +41,9 @@ export function Container({
 
   return (
     <>
-      <Canvas size={size}>
+      <Canvas size={size} padding={padding}>
         <Track />
+        {children}
         {show && (
           <TickMark
             {...{
@@ -59,7 +60,7 @@ export function Container({
             }}
           />
         )}
-        {children}
+
       </Canvas>
       <Gesture
         onStart={onGestureStart}

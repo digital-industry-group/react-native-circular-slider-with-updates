@@ -7,33 +7,38 @@ import {SliderOptions, TickMarkOptions, TrackOptions} from '../../types';
 export interface AmountSliderProps extends SliderOptions {
   amount: number;
   thumbColor?: string;
+  thumbRadius?: number;
   filledColor?: string;
   onChange?: (amount: number) => void;
   thumbIcon?: React.ReactNode;
   trackOptions?: TrackOptions;
   tickMarkOptions?: TickMarkOptions;
   onMove?: (amount: number) => void;
-  startTheta?: number;
-  endTheta?: number;
+  startDeg?: number;
+  endDeg?: number;
+  padding?: number;
 }
 
 export function AmountSlider({
   size,
   clockwise,
   thumbColor = '#FFA500',
+  thumbRadius,
   filledColor = '#FFE5B4',
   amount,
   onChange,
-    onMove,
-  startTheta,
-  endTheta,
+  onMove,
+  startDeg,
+  endDeg,
   thumbIcon,
   trackOptions = {},
   tickMarkOptions = {},
+  padding = 0,
 }: AmountSliderProps) {
   return (
     <Slider
       size={size}
+      padding={padding}
       clockwise={clockwise}
       trackOptions={trackOptions}
       tickMarkOptions={tickMarkOptions}
@@ -41,11 +46,12 @@ export function AmountSlider({
       <Amount
         amount={amount}
         thumbColor={thumbColor}
+        thumbRadius={thumbRadius}
         filledColor={filledColor}
         onChange={onChange}
         onMove={onMove}
-        startDeg={startTheta}
-        endDeg={endTheta}
+        startDeg={startDeg}
+        endDeg={endDeg}
       />
     </Slider>
   );

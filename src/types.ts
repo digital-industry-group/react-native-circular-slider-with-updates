@@ -16,6 +16,7 @@ export type GestureThumbs = {
 
 export type SliderOptions = {
   size: number;
+  padding?: number;
   clockwise?: boolean;
 };
 

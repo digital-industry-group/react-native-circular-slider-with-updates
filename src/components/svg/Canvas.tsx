@@ -9,6 +9,7 @@ const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 
 export interface CanvasProps {
   size: SharedNumber;
+  padding: SharedNumber;
   children?: React.ReactNode;
 }
 

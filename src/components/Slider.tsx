@@ -18,6 +18,7 @@ export interface GaugeProps extends SliderOptions {
 
 export default function Slider({
   size,
+  padding = 0,
   clockwise,
   trackOptions,
   tickMarkOptions,
@@ -39,7 +40,7 @@ export default function Slider({
 
   return (
     <SliderContextProvider
-      sliderOptions={{size, clockwise: clockwise ?? true}}
+      sliderOptions={{size, padding, clockwise: clockwise ?? true}}
       trackOptions={{width, color}}
       tickMarkOptions={{
         show,
