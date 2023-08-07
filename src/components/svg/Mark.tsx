@@ -15,6 +15,7 @@ export interface MarkProps {
   length: number;
   theta: number;
   text?: string;
+  longLength: number;
 }
 
 export const Mark = memo(
@@ -26,6 +27,7 @@ export const Mark = memo(
     color,
     thickness,
     length,
+    longLength,
     theta,
     text,
   }: MarkProps) => {
@@ -33,7 +35,7 @@ export const Mark = memo(
       const v1 = vector(theta, r.value - trackWidth.value / 2, center.value);
       const v2 = vector(
         theta,
-        r.value - trackWidth.value / 2 - (text ? length : length / 2),
+        r.value - trackWidth.value / 2 - (text ? longLength : length),
         center.value,
       );
 

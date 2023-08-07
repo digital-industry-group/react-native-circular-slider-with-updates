@@ -36,6 +36,7 @@ export default function Slider({
     showText = show,
     textSize = 10,
     textColor = '#191919',
+    longLength = length * 2,
   } = tickMarkOptions;
 
   return (
@@ -52,6 +53,7 @@ export default function Slider({
         showText,
         textSize,
         textColor,
+        longLength,
       }}
       thumbOptions={thumbOptions}>
       <View style={[styles.container, {width: size, height: size}]}>

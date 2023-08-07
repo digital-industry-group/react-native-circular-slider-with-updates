@@ -16,6 +16,7 @@ export interface TickMarkProps {
   length: number;
   total: number;
   unit: number;
+  longLength: number;
 }
 
 export const TickMark = memo(
@@ -30,12 +31,21 @@ export const TickMark = memo(
     clockwise,
     total,
     unit,
+    longLength,
   }: TickMarkProps) => {
+    const allValues = Array.from({length: total}).map((_, i) => {
+      const theta = setClockwise((i * TAU) / total, clockwise);
+      const isLong = i % unit === 0;
+      return {
+        theta,
+        isLong,
+      };
+    });
+    const allTicks = allValues.filter(v => (length ? true : v.isLong));
     return (
       <React.Fragment>
-        {Array.from({length: total}).map((_, i) => {
-          const theta = setClockwise((i * TAU) / total, clockwise);
-          const isLong = i % unit === 0;
+        {allTicks.map((v, i) => {
+          const {theta, isLong} = v;
           return (
             <Mark
               key={i}
@@ -49,6 +59,7 @@ export const TickMark = memo(
                 color,
                 thickness,
                 length,
+                longLength,
               }}
             />
           );
