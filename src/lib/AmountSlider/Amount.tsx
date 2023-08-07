@@ -18,7 +18,7 @@ export interface AmountProps {
   filledColor: string;
   onChange?: (amount: number) => void;
   onMove?: (amount: number) => void;
-  onMoveDebug?: (data: {theta: number; total: number; clockwise: boolean}) => void;
+  onMoveDebug?: (data: {theta: number; last: number | null; offset: number | null; total: number; clockwise: boolean}) => void;
   startDeg?: number;
   endDeg?: number;
 }
@@ -44,6 +44,7 @@ export function Amount({
 
   const onGestureActive = ({x, y}: Vector, context: GestureContext) => {
     'worklet';
+
     const valueDeg = theta2Amount(theta.value, 360, clockwise);
     if (context.target.value?.curr) {
       if (onMove) {
@@ -52,16 +53,23 @@ export function Amount({
         }
       }
       if (onMoveDebug) {
-        runOnJS(onMoveDebug)({theta: theta.value, total, clockwise})
+        runOnJS(onMoveDebug)({theta: theta.value, last: context.last, offset: context.offset, total, clockwise})
       }
       const {theta: newTheta} = canvas2Polar({x, y}, center.value);
       const delta = newTheta - context.offset;
-      if (valueDeg <= endDeg && valueDeg >= startDeg) {
-        theta.value = normalize(theta.value + delta);
+      const normalizedTheta = normalize(theta.value + delta);
+      if (endTheta.value <= normalizedTheta) {
+        theta.value = normalizedTheta;
         context.offset = newTheta;
-      } else {
+        context.last = theta.value;
+      } else if (zeroTheta.value < normalizedTheta) {
         theta.value = endTheta.value;
-        // context.offset = endTheta.value;
+      } else if (zeroTheta.value >= normalizedTheta) {
+        theta.value = normalizedTheta;
+        context.offset = newTheta;
+        context.last = theta.value;
+      } else {
+        theta.value = zeroTheta.value;
       }
     }
   };

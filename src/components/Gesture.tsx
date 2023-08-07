@@ -15,6 +15,7 @@ import {GestureThumbs} from '../types';
 export type GestureContext = {
   offset: number;
   target: SharedValue<GestureThumbs | null>;
+  last: number | null;
 };
 
 export interface GestureProps {
