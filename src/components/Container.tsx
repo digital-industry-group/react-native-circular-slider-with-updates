@@ -1,5 +1,5 @@
 import React from 'react';
-import {useSharedValue} from 'react-native-reanimated';
+import {runOnJS, useSharedValue} from 'react-native-reanimated';
 import {canvas2Polar, Vector} from 'react-native-redash';
 
 import CursorOverlay from './CursorOverlay';
@@ -16,6 +16,7 @@ export interface ContainerProps {
   thetas: SharedNumber[];
   onGestureActive?: (vector: Vector, context: GestureContext) => void;
   onGestureEnd?: (vector: Vector, context: GestureContext) => void;
+  onStart?: () => void;
   children?: React.ReactNode;
 }
 
@@ -23,6 +24,7 @@ export function Container({
   thetas,
   onGestureActive,
   onGestureEnd,
+  onStart,
   children,
 }: ContainerProps) {
   const {size, padding, r, center, clockwise, trackWidth} = useSliderContext();
@@ -33,8 +35,10 @@ export function Container({
   const target = useSharedValue<GestureThumbs | null>(null);
 
   const onGestureStart = ({x, y}: Vector, context: GestureContext) => {
-    console.log('onGestureStart')
     'worklet';
+    if (onStart) {
+      runOnJS(onStart)();
+    }
     const {theta} = canvas2Polar({x, y}, center.value);
     context.offset = theta;
     context.target = target;

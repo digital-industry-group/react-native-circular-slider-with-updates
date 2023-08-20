@@ -21,6 +21,8 @@ export interface AmountProps {
   onMoveDebug?: (data: {theta: number; last: number | null; offset: number | null; total: number; clockwise: boolean}) => void;
   startDeg?: number;
   endDeg?: number;
+  onStart?: ()=>void;
+  onEnd?: ()=>void;
 }
 
 export function Amount({
@@ -33,6 +35,8 @@ export function Amount({
   onMoveDebug,
   startDeg = 0,
   endDeg = 359,
+  onStart,
+  onEnd,
 }: AmountProps) {
   const {center, clockwise} = useSliderContext();
   const {total} = useTickMarkContext();
@@ -43,7 +47,6 @@ export function Amount({
   const theta = useSharedValue(amount2Theta(amount, total, clockwise));
 
   const onGestureActive = ({x, y}: Vector, context: GestureContext) => {
-    console.log('onGestureActive')
     'worklet';
 
     const valueDeg = theta2Amount(theta.value, 360, clockwise);
@@ -76,9 +79,11 @@ export function Amount({
   };
 
   const onGestureEnd = ({x, y}: Vector, context: GestureContext) => {
-    console.log('onGestureEnd')
     'worklet';
     context.target.value = null;
+    if (onEnd) {
+      runOnJS(onEnd)();
+    }
 
     if (onChange) {
       runOnJS(onChange)(theta2Amount(theta.value, total, clockwise));
@@ -89,7 +94,9 @@ export function Amount({
     <Container
       thetas={[theta]}
       onGestureActive={onGestureActive}
-      onGestureEnd={onGestureEnd}>
+      onGestureEnd={onGestureEnd}
+      onStart={onStart}
+    >
       <FilledGauge
         color={filledColor}
         startTheta={zeroTheta}

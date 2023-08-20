@@ -1,7 +1,7 @@
 {
   "name": "react-native-circular-slider-with-updates",
   "description": "3 types Circular Slider Component for React Native",
-  "version": "0.0.57",
+  "version": "0.0.61",
   "private": false,
   "license": "MIT",
   "main": "lib/commonjs/index.js",
