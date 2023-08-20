@@ -18,6 +18,8 @@ export interface AmountSliderProps extends SliderOptions {
   startDeg?: number;
   endDeg?: number;
   padding?: number;
+  onStart?: ()=>void;
+  onEnd?: ()=>void;
 }
 
 export function AmountSlider({
@@ -36,6 +38,8 @@ export function AmountSlider({
   trackOptions = {},
   tickMarkOptions = {},
   padding = 0,
+  onStart,
+  onEnd,
 }: AmountSliderProps) {
   useEffect(() => {
     console.log('amount', amount)
@@ -58,6 +62,8 @@ export function AmountSlider({
         onMoveDebug={onMoveDebug}
         startDeg={startDeg}
         endDeg={endDeg}
+        onStart={onStart}
+        onEnd={onEnd}
       />
     </Slider>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
 import {canvas2Polar, Vector, TAU} from 'react-native-redash';
 import {runOnJS, useSharedValue} from 'react-native-reanimated';
 
@@ -45,6 +45,10 @@ export function Amount({
   const endTheta = useSharedValue(amount2Theta(endDeg, 360, clockwise));
   const endThetaReturn = useSharedValue(amount2Theta(endDeg, 360, clockwise));
   const theta = useSharedValue(amount2Theta(amount, total, clockwise));
+
+  useEffect(() => {
+    theta.value = amount2Theta(amount, total, clockwise);
+  },[amount]);
 
   const onGestureActive = ({x, y}: Vector, context: GestureContext) => {
     'worklet';
