@@ -43,6 +43,7 @@ export function Amount({
   const theta = useSharedValue(amount2Theta(amount, total, clockwise));
 
   const onGestureActive = ({x, y}: Vector, context: GestureContext) => {
+    console.log('onGestureActive')
     'worklet';
 
     const valueDeg = theta2Amount(theta.value, 360, clockwise);
@@ -75,6 +76,7 @@ export function Amount({
   };
 
   const onGestureEnd = ({x, y}: Vector, context: GestureContext) => {
+    console.log('onGestureEnd')
     'worklet';
     context.target.value = null;
 

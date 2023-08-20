@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from "react";
 
 import {Amount} from './Amount';
 import Slider from '../../components/Slider';
@@ -37,6 +37,9 @@ export function AmountSlider({
   tickMarkOptions = {},
   padding = 0,
 }: AmountSliderProps) {
+  useEffect(() => {
+    console.log('amount', amount)
+  },[amount]);
   return (
     <Slider
       size={size}
